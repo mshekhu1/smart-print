@@ -1,0 +1,17 @@
+{
+  "name": "smartprint-clone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local clone of https://smartprintingsolution.online/",
+  "scripts": {
+    "start": "npx --yes serve -s . -l 3000",
+    "dev": "npm run start",
+    "firebase:login": "firebase login",
+    "firebase:deploy": "firebase deploy",
+    "firebase:deploy:hosting": "firebase deploy --only hosting",
+    "firebase:deploy:rules": "firebase deploy --only firestore:rules"
+  },
+  "devDependencies": {
+    "firebase-tools": "^14.2.0"
+  }
+}
