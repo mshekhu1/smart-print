@@ -64,6 +64,12 @@ npx firebase use
 
 ## Deploy
 
+### Vercel (current live host)
+
+Your domain uses **Vercel**. See **[VERCEL.md](./VERCEL.md)** — push to redeploy; `sitemap-forum.xml` is served by `api/sitemap-forum.js`.
+
+### Firebase Hosting (alternative)
+
 **Requires Blaze (pay-as-you-go) plan** for Cloud Functions. Upgrade in Firebase Console if deploy fails with a billing error.
 
 Deploy everything (hosting + functions + Firestore rules):

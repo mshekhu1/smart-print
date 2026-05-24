@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    {
+      "source": "/sitemap-forum.xml",
+      "destination": "/api/sitemap-forum"
+    },
+    {
+      "source": "/forum/question/:id",
+      "destination": "/api/forum/question/:id"
+    },
+    {
+      "source": "/((?!api/|static/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap-forum.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}
