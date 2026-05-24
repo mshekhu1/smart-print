@@ -1,10 +1,24 @@
 {
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ],
   "hosting": {
     "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
+      "functions/**",
       "scripts/**",
       "package.json",
       "package-lock.json",
@@ -12,6 +26,14 @@
       "FIREBASE.md"
     ],
     "rewrites": [
+      {
+        "source": "/forum/question/**",
+        "function": "renderQuestion"
+      },
+      {
+        "source": "/sitemap-forum.xml",
+        "function": "forumSitemap"
+      },
       {
         "source": "**",
         "destination": "/index.html"
@@ -29,6 +51,24 @@
       },
       {
         "source": "sitemap.xml",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "source": "sitemap-pages.xml",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "source": "/sitemap-forum.xml",
         "headers": [
           {
             "key": "Content-Type",

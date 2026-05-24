@@ -64,7 +64,9 @@ npx firebase use
 
 ## Deploy
 
-Deploy everything (hosting + Firestore rules):
+**Requires Blaze (pay-as-you-go) plan** for Cloud Functions. Upgrade in Firebase Console if deploy fails with a billing error.
+
+Deploy everything (hosting + functions + Firestore rules):
 
 ```bash
 npm run firebase:deploy
@@ -73,11 +75,20 @@ npm run firebase:deploy
 Or deploy separately:
 
 ```bash
-npm run firebase:deploy:hosting   # static site + sitemap.xml
-npm run firebase:deploy:rules     # Firestore security rules
+npm run firebase:deploy:hosting    # static site + sitemap index
+npm run firebase:deploy:functions  # SEO question pages + forum sitemap
+npm run firebase:deploy:rules      # Firestore security rules
 ```
 
-> **Note:** This app does not use Firebase Storage (no file uploads). Storage is not included in deploy config, so you do not need to enable it in the console. If you add uploads later, enable Storage in the console and add a `"storage"` section back to `firebase.json`.
+After deploy, verify:
+
+- https://smartprintingsolution.online/sitemap.xml (sitemap index)
+- https://smartprintingsolution.online/sitemap-forum.xml (all question URLs from Firestore)
+- https://smartprintingsolution.online/forum/question/{id} (unique title + QAPage schema in HTML)
+
+Submit `sitemap.xml` in [Google Search Console](https://search.google.com/search-console).
+
+> **Note:** This app does not use Firebase Storage (no file uploads). Storage is not included in deploy config, so you do not need to enable it in the console.
 
 After hosting deploy, the site is available at:
 
@@ -97,10 +108,15 @@ Auth and forum use the live Firebase backend. `localhost` must be in **Authorize
 
 | File | Purpose |
 |------|---------|
-| `firebase.json` | Hosting, Firestore, Storage deploy config |
+| `firebase.json` | Hosting, Functions, Firestore deploy config |
 | `.firebaserc` | Default project ID |
 | `firebase/config.json` | Web app config (also baked into `static/js/main.*.js`) |
 | `.env.example` | Env vars if you rebuild the React app from source |
+| `functions/index.js` | SEO functions: `renderQuestion`, `forumSitemap` |
+| `sitemap.xml` | Sitemap index |
+| `sitemap-pages.xml` | Static pages sitemap |
+| `firestore.rules` | Database security rules |
+| `storage.rules` | Optional; not deployed (Storage unused by this app) |
 | `firestore.rules` | Database security rules |
 | `storage.rules` | Optional; not deployed (Storage unused by this app) |
 
@@ -121,3 +137,5 @@ If you want a **new** Firebase project instead of the existing one:
 | `permission-denied` on forum | Run `npm run firebase:deploy:rules` |
 | Google sign-in popup blocked | Allow popups; check OAuth client in Google Cloud Console |
 | `/sitemap.xml` returns HTML | Redeploy hosting; ensure `sitemap.xml` exists at project root |
+| Functions deploy fails (billing) | Upgrade Firebase project to Blaze plan |
+| Question page shows generic title | Redeploy functions: `npm run firebase:deploy:functions` |
