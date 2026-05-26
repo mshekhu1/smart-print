@@ -1,8 +1,8 @@
-const { getQuestionWithAnswers } = require("../../lib/firestore-rest");
+const { getQuestionWithAnswers } = require("../../../lib/firestore-rest");
 const {
   renderQuestionPage,
   renderNotFoundPage,
-} = require("../../lib/forum-seo");
+} = require("../../../lib/forum-seo");
 
 module.exports = async (req, res) => {
   const questionId = req.query.id;
