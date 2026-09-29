@@ -9,6 +9,18 @@
       "destination": "/api/forum/question/:id"
     },
     {
+      "source": "/services/:slug",
+      "destination": "/api/seo/:slug"
+    },
+    {
+      "source": "/blog",
+      "destination": "/api/blog"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/api/blog/:slug"
+    },
+    {
       "source": "/((?!api/|static/|.*\\..*).*)",
       "destination": "/index.html"
     }
